@@ -5,6 +5,8 @@ let guardX = 800;
 let guardY = 450;
 //characters speed
 let robberSpeed = 1;
+let isAsleep = true;
+let hiddenStatus = false;
 
 let standSprite;
 let laydownSprite;
@@ -14,16 +16,23 @@ let sleepSprite;
 let awakeSprite;
 let bg;
 
-let isAsleep = true;
+
 
 setInterval(function() {
-  let randomNum = Math.floor(Math.random() * 17) + 1;
-  console.log(randomNum)
-  if (randomNum === 13 && isAsleep === true) {
-    console.log('test');
-    waker();
-  }
+    let randomNum = Math.floor(Math.random() * 9) + 1;
+    if (isAsleep === true && randomNum === 1) {
+      waker();
+    }
 },1000)
+
+function waker() {
+  isAsleep = false;
+  let randomNum = Math.floor(Math.random() * 5) + 1;
+  let counter = randomNum;
+  setTimeout(function() {
+    isAsleep = true;
+  },randomNum * 1000);
+};
 
 function preload() {
   standSprite = loadImage('assets/stand.png');
@@ -41,23 +50,11 @@ function setup() {
 
 }
 
-function waker() {
-  isAsleep = false;
-  let randomNum = Math.floor(Math.random() * 5) + 1;
-  let counter = randomNum;
-  let timer = setInterval(function() {
-    if (counter != 0) {
-    counter -= 1;
-    }
-    if (counter === 0 ) {
-      isAsleep = true;
-    }
-  },1000); 
-};
+
 
 function draw(){
   background(bg);
-
+  
   if (isAsleep === true) {
     image(sleepSprite, guardX, guardY)
   } else if (isAsleep === false) {
@@ -75,6 +72,8 @@ function draw(){
     let tempY = robberY + 40
     animation(walkSprite, tempX, tempY);
   } else if (keyIsDown(DOWN_ARROW)) {
+    hiddenStatus = true;
+    console.log(hiddenStatus);
     image(laydownSprite, robberX, robberY);
   } else if (keyIsPressed === false) {
     image(standSprite, robberX, robberY);
@@ -84,32 +83,3 @@ function draw(){
     image(standSprite, robberX, robberY);
   }
 }
-/*
-let guardVisionX = 1390;
-let guardVisionY = 300;
-let guardVisionSpeed = 2;
-
-function setup() {
- createCanvas(1425, 400);
-}
-function draw(){
- background('gray');
- if (keyIsDown(LEFT_ARROW)) {
-   robberX = robberX - robberSpeed;
- }
- else if (keyIsDown(RIGHT_ARROW)) {
-   robberX = robberX + robberSpeed;
- }
- else if (keyIsDown(DOWN_ARROW)) {
-   var i;
-   for (i = 0; i < 25; i++){
-     guardVisionX = guardVisionX - robberSpeed;
-   }
-   hiddenStatus = true;
- }
- hiddenStatus = false;
- let robber = ellipse(robberX, robberY, 50, 50);
- let guard = ellipse(guardX, guardY, 50, 50);
- let guardVision = ellipse(guardVisionX, guardVisionY, 20, 5);
-}
-*/
