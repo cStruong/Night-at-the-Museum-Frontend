@@ -6,34 +6,33 @@ let guardY = 450;
 //characters speed
 let robberSpeed = 1;
 
-let standSprite;
-let laydownSprite;
-let walkSprite; 
-let stealSprite;
-let sleepSprite;
-let awakeSprite;
+let standImage;
+let laydownImage;
+let walkImage; 
+let stealImage;
+let sleepImage;
+let awakeImage;
 let bg;
 
 let isAsleep = true;
 
-setInterval(function() {
-  let randomNum = Math.floor(Math.random() * 17) + 1;
-  console.log(randomNum)
-  if (randomNum === 13 && isAsleep === true) {
-    console.log('test');
+let randomGuardwaker = setInterval(function() {
+  let randomNum = Math.floor(Math.random() * 10) + 1;
+  if (randomNum === 3 && isAsleep === true) {
     waker();
   }
 },1000)
 
 function preload() {
-  standSprite = loadImage('assets/stand.png');
-  laydownSprite = loadImage('assets/laydown.png');
-  stealSprite = loadImage('assets/steal.png');
-  sleepSprite = loadImage('assets/sleeping.png');
-  awakeSprite = loadImage('assets/awake.png');
-  walkSprite = loadAnimation('assets/walk1.png','assets/walk2.png', 'assets/walk3.png');
+  standImage = loadImage('assets/stand.png');
+  laydownImage = loadImage('assets/laydown.png');
+  stealImage = loadImage('assets/steal.png');
+  sleepImage = loadImage('assets/sleeping.png');
+  awakeImage = loadImage('assets/awake.png');
+  walkImage = loadAnimation('assets/walk1.png','assets/walk2.png', 'assets/walk3.png');
   revWalkSprite = loadAnimation('assets/revwalk1.png', 'assets/revwalk2.png', 'assets/revwalk3.png');
   bg = loadImage('assets/bg.jpg');
+  characterSprite = createSprite (0, 0, 40, 80);
 }
 
 function setup() {
@@ -43,25 +42,20 @@ function setup() {
 
 function waker() {
   isAsleep = false;
-  let randomNum = Math.floor(Math.random() * 5) + 1;
+  let randomNum = Math.floor(Math.random() * 10) + 1;
   let counter = randomNum;
-  let timer = setInterval(function() {
-    if (counter != 0) {
-    counter -= 1;
-    }
-    if (counter === 0 ) {
+  setTimeout(function() {
       isAsleep = true;
-    }
-  },1000); 
+  },randomNum * 1000); 
 };
 
 function draw(){
   background(bg);
 
   if (isAsleep === true) {
-    image(sleepSprite, guardX, guardY)
+    image(sleepImage, guardX, guardY)
   } else if (isAsleep === false) {
-    image(awakeSprite, guardX, guardY)
+    image(awakeImage, guardX, guardY)
   }
 
   if (keyIsDown(LEFT_ARROW)) {
@@ -73,17 +67,21 @@ function draw(){
     robberX = robberX + robberSpeed;
     let tempX = robberX + 40
     let tempY = robberY + 40
-    animation(walkSprite, tempX, tempY);
+    animation(walkImage, tempX, tempY);
   } else if (keyIsDown(DOWN_ARROW)) {
-    image(laydownSprite, robberX, robberY);
+    image(laydownImage, robberX, robberY);
   } else if (keyIsPressed === false) {
-    image(standSprite, robberX, robberY);
+    image(standImage, robberX, robberY);
   } else if (keyIsDown(UP_ARROW)) {
-    image(stealSprite, robberX, robberY);
+    image(stealImage, robberX, robberY);
   } else {
-    image(standSprite, robberX, robberY);
+    image(standImage, robberX, robberY);
   }
+
 }
+
+
+
 /*
 let guardVisionX = 1390;
 let guardVisionY = 300;
