@@ -4,8 +4,7 @@ let robberY = 450;
 let guardX = 800;
 let guardY = 450;
 //characters speed
-let robberSpeed = 5;
-let hiddenStatus = false;
+let robberSpeed = 1;
 
 let standSprite;
 let laydownSprite;
@@ -14,6 +13,17 @@ let stealSprite;
 let sleepSprite;
 let awakeSprite;
 let bg;
+
+let isAsleep = true;
+
+setInterval(function() {
+  let randomNum = Math.floor(Math.random() * 17) + 1;
+  console.log(randomNum)
+  if (randomNum === 13 && isAsleep === true) {
+    console.log('test');
+    waker();
+  }
+},1000)
 
 function preload() {
   standSprite = loadImage('assets/stand.png');
@@ -31,11 +41,23 @@ function setup() {
 
 }
 
+function waker() {
+  isAsleep = false;
+  let randomNum = Math.floor(Math.random() * 5) + 1;
+  let counter = randomNum;
+  let timer = setInterval(function() {
+    if (counter != 0) {
+    counter -= 1;
+    }
+    if (counter === 0 ) {
+      isAsleep = true;
+    }
+  },1000); 
+};
 
 function draw(){
   background(bg);
 
-  let isAsleep = false;
   if (isAsleep === true) {
     image(sleepSprite, guardX, guardY)
   } else if (isAsleep === false) {
@@ -61,11 +83,7 @@ function draw(){
   } else {
     image(standSprite, robberX, robberY);
   }
-
-
-
 }
-
 /*
 let guardVisionX = 1390;
 let guardVisionY = 300;
