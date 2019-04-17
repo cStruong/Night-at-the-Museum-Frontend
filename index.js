@@ -1,21 +1,19 @@
-
-let robberX = 35;
-let robberY = 450;
+robberX = 35;
+robberY = 514;
 let guardX = 800;
-let guardY = 450;
+let guardY = 466;
 //characters speed
-let robberSpeed = 1;
+let robberSpeed = 5;
 let isAsleep = true;
 let hiddenStatus = false;
 
-let standSprite;
-let laydownSprite;
-let walkSprite; 
-let stealSprite;
-let sleepSprite;
-let awakeSprite;
+let standImage;
+let laydownImage;
+let walkImage; 
+let stealImage;
+let sleepImage;
+let awakeImage;
 let bg;
-
 
 
 setInterval(function() {
@@ -35,51 +33,73 @@ function waker() {
 };
 
 function preload() {
-  standSprite = loadImage('assets/stand.png');
-  laydownSprite = loadImage('assets/laydown.png');
-  stealSprite = loadImage('assets/steal.png');
-  sleepSprite = loadImage('assets/sleeping.png');
-  awakeSprite = loadImage('assets/awake.png');
-  walkSprite = loadAnimation('assets/walk1.png','assets/walk2.png', 'assets/walk3.png');
-  revWalkSprite = loadAnimation('assets/revwalk1.png', 'assets/revwalk2.png', 'assets/revwalk3.png');
+  //IMAGES
+  standImage = loadImage('assets/stand.png');
+  laydownImage = loadImage('assets/laydown.png');
+  stealImage = loadImage('assets/steal.png');
+  sleepImage = loadImage('assets/sleeping.png');
+  awakeImage = loadImage('assets/awake.png');
+  walkImage = loadAnimation('assets/walk1.png','assets/walk2.png', 'assets/walk3.png');
+  revWalkImage = loadAnimation('assets/revwalk1.png', 'assets/revwalk2.png', 'assets/revwalk3.png');
   bg = loadImage('assets/bg.jpg');
+
+  standSprite = createSprite(robberX, robberY, 35, 60);
+  standSprite.addImage(standImage);
+
+  laydownSprite = createSprite(robberX, robberY, 60, 35);
+  laydownSprite.addImage(laydownImage);
+
+  walkSprite = createSprite(robberX, robberY, 35, 60);
+  walkSprite.addAnimation('walk', walkImage)
+
+  revWalkSprite = createSprite(robberX, robberY, 35, 60);
+  revWalkSprite.addAnimation('revWalk', revWalkImage)
+
+  floorSprite = createSprite(800, 597, 1600, 100);
 }
 
 function setup() {
   createCanvas(920, 640);
-
 }
 
 
 
 function draw(){
   background(bg);
-  
+  drawSprite(floorSprite);
   if (isAsleep === true) {
-    image(sleepSprite, guardX, guardY)
+    image(sleepImage, guardX, guardY+10)
   } else if (isAsleep === false) {
-    image(awakeSprite, guardX, guardY)
+    image(awakeImage, guardX, guardY)
   }
 
   if (keyIsDown(LEFT_ARROW)) {
-    robberX = robberX - robberSpeed;
-    let tempY = robberY + 40
-    let tempX = robberX
-    animation(revWalkSprite, tempX, tempY);
+    walkSprite.position.x -= robberSpeed
+    robberX -= robberSpeed
+    // robberX = robberX - robberSpeed;
+    let tempY = robberY
+    let tempX = robberX - 40
+    animation(revWalkImage, tempX, tempY);
   } else if (keyIsDown(RIGHT_ARROW)) {
-    robberX = robberX + robberSpeed;
-    let tempX = robberX + 40
-    let tempY = robberY + 40
-    animation(walkSprite, tempX, tempY);
+    walkSprite.position.x += robberSpeed
+    robberX += robberSpeed
+    drawSprite(walkSprite)
+    // robberX = robberX + robberSpeed;
+    // let tempX = robberX + 40
+    // let tempY = robberY + 40
+    // animation(walkImage, tempX, tempY);
   } else if (keyIsDown(DOWN_ARROW)) {
-    hiddenStatus = true;
-    console.log(hiddenStatus);
-    image(laydownSprite, robberX, robberY);
+    laydownSprite.remove();
+    laydownSprite = createSprite(robberX, robberY, 60, 35);
+    laydownSprite.addImage(laydownImage);
+    drawSprite(laydownSprite)
   } else if (keyIsPressed === false) {
-    image(standSprite, robberX, robberY);
+    standSprite.remove();
+    standSprite = createSprite(robberX, robberY, 35, 60);
+    standSprite.addImage(standImage);
+    drawSprite(standSprite);
+    // image(standImage, robberX, robberY);
   } else if (keyIsDown(UP_ARROW)) {
-    image(stealSprite, robberX, robberY);
-  } else {
-    image(standSprite, robberX, robberY);
+    // image(stealImage, robberX, robberY);
   }
 }
