@@ -55,8 +55,11 @@ function preload() {
   revWalkSprite = createSprite(robberX, robberY, 35, 60);
   revWalkSprite.addAnimation('revWalk', revWalkImage)
 
+  stealSprite = createSprite(robberX, robberY, 35, 60);
+  stealSprite.addAnimation('steal', stealImage)
+
   floorSprite = createSprite(800, 597, 1600, 100);
-  bulletSprite = createSprite(780, 500, 100 ,2);
+  bulletSprite = createSprite(425, 500, 400 ,2);
   bulletSprite.shapeColor = color(400);
 }
 
@@ -70,11 +73,14 @@ function draw(){
   background(bg);
 
   drawSprite(floorSprite);
-  drawSprite(bulletSprite);
 
   if (isAsleep === true) {
+    bulletSprite.remove();
     image(sleepImage, guardX, guardY+10)
   } else if (isAsleep === false) {
+    bulletSprite = createSprite(450, 500, 775, 2);
+    bulletSprite.visible = false;
+    drawSprite(bulletSprite);
     image(awakeImage, guardX, guardY)
   }
 
@@ -94,17 +100,32 @@ function draw(){
     // let tempY = robberY + 40
     // animation(walkImage, tempX, tempY);
   } else if (keyIsDown(DOWN_ARROW)) {
+    hiddenStatus = true;
     laydownSprite.remove();
     laydownSprite = createSprite(robberX, robberY, 60, 35);
     laydownSprite.addImage(laydownImage);
     drawSprite(laydownSprite)
   } else if (keyIsPressed === false) {
+    hiddenStatus = false;
     standSprite.remove();
     standSprite = createSprite(robberX, robberY, 35, 60);
     standSprite.addImage(standImage);
     drawSprite(standSprite);
     // image(standImage, robberX, robberY);
   } else if (keyIsDown(UP_ARROW)) {
+    stealSprite.remove();
+    stealSprite = createSprite(robberX, robberY, 60, 35);
+    stealSprite.addImage(stealImage)
+    drawSprite(stealSprite)
     // image(stealImage, robberX, robberY);
+  }
+
+
+  if (bulletSprite.overlap(standSprite)) {
+    if (hiddenStatus === false) {
+      console.log('HIT')
+    } else {
+      console.log('MISS')
+    }
   }
 }
