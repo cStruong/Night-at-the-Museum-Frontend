@@ -56,6 +56,8 @@ function preload() {
   revWalkSprite.addAnimation('revWalk', revWalkImage)
 
   floorSprite = createSprite(800, 597, 1600, 100);
+  bulletSprite = createSprite(780, 500, 100 ,2);
+  bulletSprite.shapeColor = color(400);
 }
 
 function setup() {
@@ -66,7 +68,10 @@ function setup() {
 
 function draw(){
   background(bg);
+
   drawSprite(floorSprite);
+  drawSprite(bulletSprite);
+
   if (isAsleep === true) {
     image(sleepImage, guardX, guardY+10)
   } else if (isAsleep === false) {
