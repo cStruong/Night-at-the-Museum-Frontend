@@ -205,7 +205,7 @@ function draw(){
   if (stealSprite.overlap(columnSprite2) && stealing === true && columnStatus2 === true) {
     if (stealCounter === 170) {
         stealCounter = 0;
-        totalScore += 100;
+        totalScore += 150;
         columnStatus2 = false;
         minecraftItemSprite.visible = false;
       }
@@ -213,7 +213,7 @@ function draw(){
   if (stealSprite.overlap(columnSprite3) && stealing === true && columnStatus3 === true) {
     if (stealCounter === 170) {
         stealCounter = 0;
-        totalScore += 100;
+        totalScore += 200;
         columnStatus3 = false;
         monalisaItemSprite.visible = false;
       }
@@ -221,7 +221,7 @@ function draw(){
   if (stealSprite.overlap(columnSprite4) && stealing === true && columnStatus4 === true) {
     if (stealCounter === 170) {
         stealCounter = 0;
-        totalScore += 100;
+        totalScore += 250;
         columnStatus4 = false;
         screamItemSprite.visible = false;
       }
@@ -229,7 +229,7 @@ function draw(){
   if (stealSprite.overlap(columnSprite5) && stealing === true && columnStatus5 === true) {
     if (stealCounter === 170) {
         stealCounter = 0;
-        totalScore += 100;
+        totalScore += 300;
         columnStatus5 = false;
         artisticItemSprite.visible = false;
       }
@@ -239,10 +239,10 @@ function draw(){
   text('Score: ' + totalScore, 5, 25);
   text("Time: " + gameTimer, 820, 25);
 
-  if (totalScore === 500) {
+  if (totalScore === 1000) {
     gameOver = true;
   }
-  if (frameCount % 60 == 0 && gameTimer > 0) { 
+  if (frameCount % 60 == 0 && gameTimer >= 0) { 
     gameTimer --;
   }
   if (gameTimer == 0) {
