@@ -143,7 +143,7 @@ function draw(){
       // console.log('MISS')
     }
   }
-  if (stealSprite.overlap(columnSprite1) && stealing === true) {
+  if ((stealSprite.overlap(columnSprite1) || stealSprite.overlap(columnSprite2) || stealSprite.overlap(columnSprite3) || stealSprite.overlap(columnSprite4) || stealSprite.overlap(columnSprite5)) && stealing === true) {
     console.log('stealing')
   }
 
