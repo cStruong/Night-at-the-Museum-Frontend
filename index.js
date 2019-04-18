@@ -51,6 +51,11 @@ function preload() {
   revWalkImage = loadAnimation('assets/revwalk1.png', 'assets/revwalk2.png', 'assets/revwalk3.png');
   bg = loadImage('assets/bg.jpg');
   column = loadImage('assets/column.png')
+  einsteinItemImage = loadImage('assets/einstein-item.png');
+  minecraftItemImage = loadImage('assets/minecraft-item.png');
+  monalisaItemImage = loadImage('assets/monalisa-item.png');
+  screamItemImage = loadImage('assets/scream-item.png');
+  artisticItemImage = loadImage('assets/artisticscream-item.png');
 
   standSprite = createSprite(robberX, robberY, 35, 60);
   standSprite.addImage(standImage);
@@ -81,6 +86,21 @@ function preload() {
   // columnSprite4.addImage(column);
   columnSprite5= createSprite(700, 507, 45, 60);
   // columnSprite5.addImage(column);
+
+  einsteinItemSprite = createSprite(200, 426, 25, 25);
+  einsteinItemSprite.addImage(einsteinItemImage);
+
+  minecraftItemSprite = createSprite(325, 426, 25, 25);
+  minecraftItemSprite.addImage(minecraftItemImage);
+
+  monalisaItemSprite = createSprite(450, 426, 25, 25);
+  monalisaItemSprite.addImage(monalisaItemImage);
+
+  screamItemSprite = createSprite(575, 426, 25, 25);
+  screamItemSprite.addImage(screamItemImage);
+
+  artisticItemSprite = createSprite(701, 426, 25, 25);
+  artisticItemSprite.addImage(artisticItemImage);
 }
 
 function setup() {
@@ -102,6 +122,11 @@ function draw(){
   background(bg);
 
   drawSprite(floorSprite);
+  drawSprite(einsteinItemSprite);
+  drawSprite(minecraftItemSprite);
+  drawSprite(monalisaItemSprite);
+  drawSprite(screamItemSprite);
+  drawSprite(artisticItemSprite);
   // drawSprite(columnSprite1)
   image(column, 160, 467);
   // drawSprite(columnSprite2);
@@ -112,6 +137,7 @@ function draw(){
   image(column, 535, 467);
   // drawSprite(columnSprite5);
   image(column, 660, 467);
+  
 
   if (isAsleep === true) {
     image(sleepImage, guardX, guardY+10)
