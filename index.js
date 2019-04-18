@@ -123,7 +123,7 @@ function draw(){
     hiddenStatus = true;
     laydownSprite.remove();
     laydownSprite = createSprite(robberX, robberY, 60, 35);
-    // laydownSprite.addImage(laydownImage);
+    laydownSprite.addImage(laydownImage);
     drawSprite(laydownSprite)
   } else if (keyIsPressed === false) {
     stealing = false;
@@ -150,7 +150,7 @@ function draw(){
       // console.log('MISS')
     }
   }
-  if (stealSprite.overlap(columnSprite1) && stealing === true) {
+  if ((stealSprite.overlap(columnSprite1) || stealSprite.overlap(columnSprite2) || stealSprite.overlap(columnSprite3) || stealSprite.overlap(columnSprite4) || stealSprite.overlap(columnSprite5)) && stealing === true) {
     console.log('stealing')
   }
 
