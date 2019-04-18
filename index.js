@@ -3,7 +3,7 @@ robberY = 514;
 let guardX = 800;
 let guardY = 466;
 //characters speed
-let robberSpeed = 5;
+let robberSpeed = 1.5;
 let isAsleep = true;
 let hiddenStatus = false;
 let stealing = false;
@@ -14,6 +14,8 @@ let columnStatus2 = true;
 let columnStatus3 = true;
 let columnStatus4 = true;
 let columnStatus5 = true;
+let gameTimer = 40;
+let gameOver = false;
 
 let standImage;
 let laydownImage;
@@ -23,11 +25,16 @@ let sleepImage;
 let awakeImage;
 let bg;
 
-
-setInterval(function() {
-    let randomNum = Math.floor(Math.random() * 9) + 1;
+let wakeEvent = setInterval(function() {
+    let randomNum = Math.floor(Math.random() * 7) + 1;
     if (isAsleep === true && randomNum === 1) {
-      waker();
+      alert.play();
+      setTimeout(function(){
+        waker();
+      },1000)
+    }
+    if (gameOver === true) {
+      clearInterval(wakeEvent);
     }
 },1000)
 
@@ -41,6 +48,8 @@ function waker() {
 };
 
 function preload() {
+  //SOUNDS
+  alert = loadSound('assets/alert.mp3');
   //IMAGES
   standImage = loadImage('assets/stand.png');
   laydownImage = loadImage('assets/laydown.png');
@@ -107,18 +116,8 @@ function setup() {
   createCanvas(920, 640);
 }
 
-function createTimer(counter) {
-  const interval = setInterval(function(){
-    console.log(counter)
-    if (counter > 0){
-      counter -= 1;
-    } else {
-      clearInterval(interval)
-    }
-  }, 1000);
-}
-
 function draw(){
+
   background(bg);
 
   drawSprite(floorSprite);
@@ -181,7 +180,6 @@ function draw(){
     // image(standImage, robberX, robberY);
   } else if (keyIsDown(UP_ARROW)) {
     stealCounter += 1;
-    console.log(stealCounter);
     stealing = true;
     stealSprite.remove();
     stealTempX = robberX - 20
@@ -192,60 +190,67 @@ function draw(){
   }
 
   if (bulletSprite.overlap(standSprite) && isAsleep === false) {
-    if (hiddenStatus === false) {
-      // console.log('HIT')
-    } else {
-      // console.log('MISS')
-    }
+      if (hiddenStatus === false) {
+        gameOver = true;
+      }
   }
   if (stealSprite.overlap(columnSprite1) && stealing === true && columnStatus1 === true) {
     if (stealCounter === 170) {
-        console.log('works')
         stealCounter = 0;
         totalScore += 100;
-        console.log(totalScore)
         columnStatus1 = false;
-        console.log(columnStatus1);
+        einsteinItemSprite.visible = false;
       }
   }
   if (stealSprite.overlap(columnSprite2) && stealing === true && columnStatus2 === true) {
     if (stealCounter === 170) {
-        console.log('works')
         stealCounter = 0;
         totalScore += 100;
-        console.log(totalScore)
         columnStatus2 = false;
-        console.log(columnStatus2);
+        minecraftItemSprite.visible = false;
       }
   }
   if (stealSprite.overlap(columnSprite3) && stealing === true && columnStatus3 === true) {
     if (stealCounter === 170) {
-        console.log('works')
         stealCounter = 0;
         totalScore += 100;
-        console.log(totalScore)
         columnStatus3 = false;
-        console.log(columnStatus3);
+        monalisaItemSprite.visible = false;
       }
   }
   if (stealSprite.overlap(columnSprite4) && stealing === true && columnStatus4 === true) {
     if (stealCounter === 170) {
-        console.log('works')
         stealCounter = 0;
         totalScore += 100;
-        console.log(totalScore)
         columnStatus4 = false;
-        console.log(columnStatus4);
+        screamItemSprite.visible = false;
       }
   }
   if (stealSprite.overlap(columnSprite5) && stealing === true && columnStatus5 === true) {
     if (stealCounter === 170) {
-        console.log('works')
         stealCounter = 0;
         totalScore += 100;
-        console.log(totalScore)
         columnStatus5 = false;
-        console.log(columnStatus5);
+        artisticItemSprite.visible = false;
       }
+  }
+  fill('pink');
+  textSize(25);
+  text('Score: ' + totalScore, 5, 25);
+  text("Time: " + gameTimer, 820, 25);
+
+  if (totalScore === 500) {
+    gameOver = true;
+  }
+  if (frameCount % 60 == 0 && gameTimer > 0) { 
+    gameTimer --;
+  }
+  if (gameTimer == 0) {
+    gameOver = true;
+  }
+  if (gameOver === true) {
+    noLoop();
+    textAlign(CENTER);
+    return text("GAME OVER", width/2, height/2);
   }
 }
