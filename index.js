@@ -6,6 +6,7 @@ let guardY = 466;
 let robberSpeed = 5;
 let isAsleep = true;
 let hiddenStatus = false;
+let stealing = false;
 
 let standImage;
 let laydownImage;
@@ -94,8 +95,6 @@ function draw(){
     image(sleepImage, guardX, guardY+10)
   } else if (isAsleep === false) {
     bulletSprite.visible = false;
-    // bulletSprite = createSprite(450, 500, 775 ,2);
-    // drawSprite(bulletSprite);
     image(awakeImage, guardX, guardY)
   }
 
@@ -121,6 +120,7 @@ function draw(){
     laydownSprite.addImage(laydownImage);
     drawSprite(laydownSprite)
   } else if (keyIsPressed === false) {
+    stealing = false;
     hiddenStatus = false;
     standSprite.remove();
     standSprite = createSprite(robberX, robberY, 35, 60);
@@ -128,18 +128,23 @@ function draw(){
     drawSprite(standSprite);
     // image(standImage, robberX, robberY);
   } else if (keyIsDown(UP_ARROW)) {
+    stealing = true;
     stealSprite.remove();
     stealSprite = createSprite(robberX, robberY, 60, 35);
     stealSprite.addImage(stealImage)
+    drawSprite(stealSprite);
     // image(stealImage, robberX, robberY);
   }
 
   if (bulletSprite.overlap(standSprite) && isAsleep === false) {
     if (hiddenStatus === false) {
-      console.log('HIT')
+      // console.log('HIT')
     } else {
-      console.log('MISS')
+      // console.log('MISS')
     }
+  }
+  if (stealSprite.overlap(columnSprite1) && stealing === true) {
+    console.log('stealing')
   }
 
 }
