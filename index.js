@@ -57,22 +57,23 @@ function preload() {
   revWalkSprite = createSprite(robberX, robberY, 35, 60);
   revWalkSprite.addAnimation('revWalk', revWalkImage)
 
-  stealSprite = createSprite(robberX, robberY, 35, 60);
+
+  stealSprite = createSprite(robberX - 20, robberY, 35, 60);
   stealSprite.addAnimation('steal', stealImage)
 
   floorSprite = createSprite(800, 597, 1600, 100);
   bulletSprite = createSprite(450, 500, 775 ,2);
   bulletSprite.shapeColor = color(51);
   columnSprite1 = createSprite(200, 507, 45, 60);
-  columnSprite1.addImage(column);
+  // columnSprite1.addImage(column);
   columnSprite2 = createSprite(325, 507, 45, 60);
-  columnSprite2.addImage(column);
+  // columnSprite2.addImage(column);
   columnSprite3 = createSprite(450, 507, 45, 60);
-  columnSprite3.addImage(column);
+  // columnSprite3.addImage(column);
   columnSprite4 = createSprite(575, 507, 45, 60);
-  columnSprite4.addImage(column);
+  // columnSprite4.addImage(column);
   columnSprite5= createSprite(700, 507, 45, 60);
-  columnSprite5.addImage(column);
+  // columnSprite5.addImage(column);
 }
 
 function setup() {
@@ -85,11 +86,16 @@ function draw(){
   background(bg);
 
   drawSprite(floorSprite);
-  drawSprite(columnSprite1);
-  drawSprite(columnSprite2);
-  drawSprite(columnSprite3);
-  drawSprite(columnSprite4);
-  drawSprite(columnSprite5);
+  // drawSprite(columnSprite1)
+  image(column, 160, 467);
+  // drawSprite(columnSprite2);
+  image(column, 285, 467);
+  // drawSprite(columnSprite3);
+  image(column, 410, 467);
+  // drawSprite(columnSprite4);
+  image(column, 535, 467);
+  // drawSprite(columnSprite5);
+  image(column, 660, 467);
 
   if (isAsleep === true) {
     image(sleepImage, guardX, guardY+10)
@@ -117,7 +123,7 @@ function draw(){
     hiddenStatus = true;
     laydownSprite.remove();
     laydownSprite = createSprite(robberX, robberY, 60, 35);
-    laydownSprite.addImage(laydownImage);
+    // laydownSprite.addImage(laydownImage);
     drawSprite(laydownSprite)
   } else if (keyIsPressed === false) {
     stealing = false;
@@ -130,10 +136,11 @@ function draw(){
   } else if (keyIsDown(UP_ARROW)) {
     stealing = true;
     stealSprite.remove();
-    stealSprite = createSprite(robberX, robberY, 60, 35);
-    stealSprite.addImage(stealImage)
-    drawSprite(stealSprite);
-    // image(stealImage, robberX, robberY);
+    stealTempX = robberX - 20
+    stealSprite = createSprite(stealTempX, robberY, 25, 60);
+    // stealSprite.addImage(stealImage)
+    // drawSprite(stealSprite);
+    image(stealImage, robberX - 40, robberY - 40);
   }
 
   if (bulletSprite.overlap(standSprite) && isAsleep === false) {
