@@ -42,6 +42,7 @@ function preload() {
   walkImage = loadAnimation('assets/walk1.png','assets/walk2.png', 'assets/walk3.png');
   revWalkImage = loadAnimation('assets/revwalk1.png', 'assets/revwalk2.png', 'assets/revwalk3.png');
   bg = loadImage('assets/bg.jpg');
+  column = loadImage('assets/column.png')
 
   standSprite = createSprite(robberX, robberY, 35, 60);
   standSprite.addImage(standImage);
@@ -59,8 +60,18 @@ function preload() {
   stealSprite.addAnimation('steal', stealImage)
 
   floorSprite = createSprite(800, 597, 1600, 100);
-  bulletSprite = createSprite(425, 500, 400 ,2);
-  bulletSprite.shapeColor = color(400);
+  bulletSprite = createSprite(450, 500, 775 ,2);
+  bulletSprite.shapeColor = color(51);
+  columnSprite1 = createSprite(200, 507, 45, 60);
+  columnSprite1.addImage(column);
+  columnSprite2 = createSprite(325, 507, 45, 60);
+  columnSprite2.addImage(column);
+  columnSprite3 = createSprite(450, 507, 45, 60);
+  columnSprite3.addImage(column);
+  columnSprite4 = createSprite(575, 507, 45, 60);
+  columnSprite4.addImage(column);
+  columnSprite5= createSprite(700, 507, 45, 60);
+  columnSprite5.addImage(column);
 }
 
 function setup() {
@@ -73,14 +84,18 @@ function draw(){
   background(bg);
 
   drawSprite(floorSprite);
+  drawSprite(columnSprite1);
+  drawSprite(columnSprite2);
+  drawSprite(columnSprite3);
+  drawSprite(columnSprite4);
+  drawSprite(columnSprite5);
 
   if (isAsleep === true) {
-    bulletSprite.remove();
     image(sleepImage, guardX, guardY+10)
   } else if (isAsleep === false) {
-    bulletSprite = createSprite(450, 500, 775, 2);
     bulletSprite.visible = false;
-    drawSprite(bulletSprite);
+    // bulletSprite = createSprite(450, 500, 775 ,2);
+    // drawSprite(bulletSprite);
     image(awakeImage, guardX, guardY)
   }
 
@@ -116,16 +131,16 @@ function draw(){
     stealSprite.remove();
     stealSprite = createSprite(robberX, robberY, 60, 35);
     stealSprite.addImage(stealImage)
-    drawSprite(stealSprite)
     // image(stealImage, robberX, robberY);
   }
 
-
-  if (bulletSprite.overlap(standSprite)) {
+  if (bulletSprite.overlap(standSprite) && isAsleep === false) {
     if (hiddenStatus === false) {
       console.log('HIT')
     } else {
       console.log('MISS')
     }
   }
+
 }
+
