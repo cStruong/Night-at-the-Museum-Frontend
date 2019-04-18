@@ -7,6 +7,13 @@ let robberSpeed = 5;
 let isAsleep = true;
 let hiddenStatus = false;
 let stealing = false;
+let stealCounter = 0;
+let totalScore = 0;
+let columnStatus1 = true;
+let columnStatus2 = true;
+let columnStatus3 = true;
+let columnStatus4 = true;
+let columnStatus5 = true;
 
 let standImage;
 let laydownImage;
@@ -80,7 +87,16 @@ function setup() {
   createCanvas(920, 640);
 }
 
-
+function createTimer(counter) {
+  const interval = setInterval(function(){
+    console.log(counter)
+    if (counter > 0){
+      counter -= 1;
+    } else {
+      clearInterval(interval)
+    }
+  }, 1000);
+}
 
 function draw(){
   background(bg);
@@ -105,6 +121,7 @@ function draw(){
   }
 
   if (keyIsDown(LEFT_ARROW)) {
+    stealing = false;
     walkSprite.position.x -= robberSpeed
     robberX -= robberSpeed
     // robberX = robberX - robberSpeed;
@@ -112,6 +129,7 @@ function draw(){
     let tempX = robberX - 40
     animation(revWalkImage, tempX, tempY);
   } else if (keyIsDown(RIGHT_ARROW)) {
+    stealing = false;
     walkSprite.position.x += robberSpeed
     robberX += robberSpeed
     drawSprite(walkSprite)
@@ -120,12 +138,14 @@ function draw(){
     // let tempY = robberY + 40
     // animation(walkImage, tempX, tempY);
   } else if (keyIsDown(DOWN_ARROW)) {
+    stealing = false;
     hiddenStatus = true;
     laydownSprite.remove();
     laydownSprite = createSprite(robberX, robberY, 60, 35);
     laydownSprite.addImage(laydownImage);
     drawSprite(laydownSprite)
   } else if (keyIsPressed === false) {
+    stealCounter = 0;
     stealing = false;
     hiddenStatus = false;
     standSprite.remove();
@@ -134,6 +154,8 @@ function draw(){
     drawSprite(standSprite);
     // image(standImage, robberX, robberY);
   } else if (keyIsDown(UP_ARROW)) {
+    stealCounter += 1;
+    console.log(stealCounter);
     stealing = true;
     stealSprite.remove();
     stealTempX = robberX - 20
@@ -150,8 +172,54 @@ function draw(){
       // console.log('MISS')
     }
   }
-  if ((stealSprite.overlap(columnSprite1) || stealSprite.overlap(columnSprite2) || stealSprite.overlap(columnSprite3) || stealSprite.overlap(columnSprite4) || stealSprite.overlap(columnSprite5)) && stealing === true) {
-    console.log('stealing')
+  if (stealSprite.overlap(columnSprite1) && stealing === true && columnStatus1 === true) {
+    if (stealCounter === 170) {
+        console.log('works')
+        stealCounter = 0;
+        totalScore += 100;
+        console.log(totalScore)
+        columnStatus1 = false;
+        console.log(columnStatus1);
+      }
   }
-
+  if (stealSprite.overlap(columnSprite2) && stealing === true && columnStatus2 === true) {
+    if (stealCounter === 170) {
+        console.log('works')
+        stealCounter = 0;
+        totalScore += 100;
+        console.log(totalScore)
+        columnStatus2 = false;
+        console.log(columnStatus2);
+      }
+  }
+  if (stealSprite.overlap(columnSprite3) && stealing === true && columnStatus3 === true) {
+    if (stealCounter === 170) {
+        console.log('works')
+        stealCounter = 0;
+        totalScore += 100;
+        console.log(totalScore)
+        columnStatus3 = false;
+        console.log(columnStatus3);
+      }
+  }
+  if (stealSprite.overlap(columnSprite4) && stealing === true && columnStatus4 === true) {
+    if (stealCounter === 170) {
+        console.log('works')
+        stealCounter = 0;
+        totalScore += 100;
+        console.log(totalScore)
+        columnStatus4 = false;
+        console.log(columnStatus4);
+      }
+  }
+  if (stealSprite.overlap(columnSprite5) && stealing === true && columnStatus5 === true) {
+    if (stealCounter === 170) {
+        console.log('works')
+        stealCounter = 0;
+        totalScore += 100;
+        console.log(totalScore)
+        columnStatus5 = false;
+        console.log(columnStatus5);
+      }
+  }
 }
