@@ -8,6 +8,7 @@ Night at the Museum is a game similar to the children's game "Red Light Green Li
 
 ## Controls
 UP = Steal the painting (must hold for a duration before painting is stolen succesfully)     
-DOWN = Crouch from the guard's sight     
+DOWN = Crouch from the guard's sight (must hold to keep staying crouched)    
 LEFT/RIGHT = directional buttons to move
 
+[id]: ./assets/screenshot.png
