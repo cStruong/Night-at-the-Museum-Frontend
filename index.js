@@ -116,6 +116,12 @@ function setup() {
   createCanvas(920, 640);
 }
 
+const ulTag = document.querySelector('.insert');
+
+const leaderBoardTemplate = (player) => {
+  return `<li>${player.name} - ${player.score}</li>`
+}
+
 function draw(){
 
   background(bg);
@@ -250,7 +256,17 @@ function draw(){
   }
   if (gameOver === true) {
     noLoop();
-    textAlign(CENTER);
-    return text("GAME OVER", width/2, height/2);
+      textAlign(CENTER);
+      text("GAME OVER", (width/2), (height/2));
+      // fetch('http://localhost:3000/leaderboards')
+      // .then((response) => {
+      //   return response.json()
+      // }).then((leaderboards) => {
+      //   leaderboards.forEach((player) => {
+      //   fill('pink');
+      //   textSize(20);
+      //   text('Name: ' + player.name + ' - ' + 'Score: ' + player.score, (width/2) - 85, (height/2) + 75)
+      // })
+      // })
   }
 }
