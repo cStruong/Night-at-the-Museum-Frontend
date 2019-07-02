@@ -11,4 +11,4 @@ UP = Steal the painting (must hold for a duration before painting is stolen succ
 DOWN = Crouch from the guard's sight (must hold to keep staying crouched)    
 LEFT/RIGHT = directional buttons to move
 
-[id]: ./assets/screenshot.png
+![GameScreenShot](./assets/screenshot.png)
