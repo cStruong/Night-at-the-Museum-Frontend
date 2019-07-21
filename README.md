@@ -2,7 +2,7 @@
 Night at the Museum is a browser game that uses the p5.js library.
 
 ## Introduction
-Night at the Museum is our Module 3 project where we were first introduced to Javascript as well as DOM manipulation. Night at the Museum is a browser game that uses the p5.js library (more specifically the p5.play library) to create a canvas on the DOM giving us access to sprite objects and draw functions. 
+Night at the Museum is our Module 3 paired project where we were first introduced to Javascript as well as DOM manipulation. Night at the Museum is a browser game that uses the p5.js library (more specifically the p5.play library) to create a canvas on the DOM giving us access to sprite objects and draw functions. 
 
 ## Table of Contents
 1. [Technologies](#technologies)
