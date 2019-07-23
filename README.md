@@ -32,6 +32,9 @@ DOWN = Crouch from the guard's sight (must hold to keep staying crouched)
 LEFT/RIGHT = directional buttons to move
 
 ## Site <a name="site"></a>
+
+#### [Demo](https://youtu.be/71gLnxiX9XU) Video
+
 ![GameScreenShot](./assets/screenshot.png)
 
 ## Authors <a name="authors"></a>
